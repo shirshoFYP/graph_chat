@@ -7,7 +7,7 @@ import math
 import torch
 from torch import nn
 import torch.nn.functional as F
-from utils import (
+from model.utils import (
     apply_rotary_emb,
     apply_rotary_emb_single,
     precompute_freqs_cis,
@@ -18,8 +18,8 @@ from utils import (
     batch_subgraph,
     add_full_rrwp,
 )
-from grit_mha import MultiHeadAttentionLayerGritSparse
-from model_args import ModelArgs
+from model.grit_mha import MultiHeadAttentionLayerGritSparse
+from model.model_args import ModelArgs
 from torch_geometric.nn.pool import global_mean_pool
 
 

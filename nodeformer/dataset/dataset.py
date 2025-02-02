@@ -11,13 +11,13 @@ import scipy.io
 from sklearn.preprocessing import label_binarize
 import torch_geometric.transforms as T
 
-from utils import (
+from dataset.utils import (
     rand_train_test_idx,
     even_quantile_labels,
     to_sparse_tensor,
     class_rand_splits,
 )
-from urls import dataset_drive_url
+from dataset.urls import dataset_drive_url
 
 
 from torch_geometric.datasets import Planetoid, Amazon, Coauthor

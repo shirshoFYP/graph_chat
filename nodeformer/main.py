@@ -41,7 +41,7 @@ def main():
         else torch.device("cpu")
     )
 
-    dataset = load_dataset(args.dataset, args.data_dir, args.sub_dataset)
+    dataset = load_dataset(args.data_dir, args.dataset, args.sub_dataset)
 
     if len(dataset.label.shape) == 1:
         dataset.label = dataset.label.unsqueeze(1)
