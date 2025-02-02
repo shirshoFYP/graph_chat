@@ -21,31 +21,17 @@ class ParseNode:
         raise NotImplementedError
 
     def iter_leaves(self):
-        if self.is_root():
-            yield from self.left.iter_leaves()
-            yield from self.right.iter_leaves()
-        else:
-            yield from self.left.iter_leaves()
-            yield from self.right.iter_leaves()
-            yield self.parent
+        raise NotImplementedError
 
     def traverse_preorder(self, callback=None):
-        if callback is not None:
-            callback(self)
-        if not self.is_root():
-            self.parent.traverse_preorder(callback)
+        raise NotImplementedError
 
-    def traverse_postorder(self, callback=None):
-        if not self.is_root():
-            self.parent.traverse_postorder(callback)
-        if callback is not None:
-            callback(self)
+    def traverse_post(self, callback=None):
+        raise NotImplementedError
 
     def get_siblings(self):
-        if self.is_root():
-            return []
-        else:
-            return [sibling for sibling in self.parent.children if sibling is not self]
+        assert self.parent is not None
+        return [sibling for sibling in self.parent.children if sibling is not self]
 
     @property
     def depth(self):
@@ -78,6 +64,16 @@ class InternalParseNode(ParseNode):
             + " ".join(child.linearize() for child in self.children)
             + ")" * len(self.label)
         )
+
+    def traverse_preorder(self, callback) -> None:
+        callback(self)
+        for c in self.children:
+            c.traverse_preorder(callback)
+
+    def traverse_post(self, callback) -> None:
+        for c in self.children:
+            c.traverse_post(callback)
+        callback(self)
 
     def last_leaf(self):
         cur = self
@@ -140,6 +136,10 @@ class InternalParseNode(ParseNode):
         self.traverse_preorder(check)
         return good
 
+    def iter_leaves(self):
+        for child in self.children:
+            yield from child.iter_leaves()
+
 
 Tree = Optional[InternalParseNode]
 
@@ -163,6 +163,12 @@ class LeafParseNode(ParseNode):
 
     def iter_leaves(self):
         yield self
+
+    def traverse_preorder(self, callback=None) -> None:
+        callback(self)
+
+    def traverse_post(self, callback=None) -> None:
+        callback(self)
 
 
 class TreeBuilder(Transformer):

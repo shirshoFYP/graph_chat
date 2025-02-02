@@ -1,0 +1,31 @@
+model_path: null
+input: null
+output: null
+language: "english"
+eval_batch_size: 80
+num_workers: 4
+amp: true
+
+model_spec: [
+    "d_model",
+    "encoder",
+    "use_words",
+    "use_tags",
+    "d_kqv",
+    "d_ff",
+    "word_emb_dropout",
+    "tag_emb_dropout",
+    "relu_dropout",
+    "residual_dropout",
+    "attention_dropout",
+    "num_attn_layers",
+    "num_attn_heads",
+    "decoder",
+    "num_gcn_layers",
+    "d_decoder",
+    "max_sentence_len",
+]
+
+hydra:
+  run:
+    dir: runs/parse

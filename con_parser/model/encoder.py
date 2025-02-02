@@ -68,7 +68,7 @@ class Encoder(nn.Module):
                 d_model,
                 config.d_ff,
                 d_position,
-                config.relu_dropou,
+                config.relu_dropout,
                 config.residual_dropout,
             )
             self.add_module(f"attn_{i}", attn)
