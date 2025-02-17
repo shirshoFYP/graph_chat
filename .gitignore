@@ -104,3 +104,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+# data
+kg.csv
